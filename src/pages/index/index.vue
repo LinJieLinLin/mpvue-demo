@@ -20,28 +20,41 @@
     </form>
     <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
     <a href="/pages/logs/main" class="counter">去往log示例页面</a>
-    <button class="btn btn-success " type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">按钮授权</button>
-
-    <button class="btn btn-success mg-t20" type="primary" @click="testHttp">测试超时</button>
+    <button class=" " type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">按钮授权</button>
+    <button class="mg-t20" type="primary" open-type="openSetting">授权设置</button>
+    <button class="mg-t20" type="primary" open-type="contact">客服会话</button>
+    <button class="mg-t20" type="primary" @click="testHttp">测试超时</button>
+    <div class="mg-t20">
+      <scan-code :c="cfSc"></scan-code>
+    </div>
   </div>
 </template>
 
 <script>
 import card from '@/components/card'
+import scanCode from '@/components/scan-code'
 
 export default {
   data() {
     return {
       motto: 'Hello World',
+      cfSc: {
+        plain: false,
+        type: 'primary',
+        onlyFromCamera: true,
+        cb: this.qrcode
+      },
       userInfo: {}
     }
   },
-
   components: {
-    card
+    card,
+    scanCode
   },
-
   methods: {
+    qrcode(res) {
+      wx.showToast({ title: res.result, icon: 'none' })
+    },
     testHttp() {
       this.$http
         .request('/mock/18016/test', null, {
