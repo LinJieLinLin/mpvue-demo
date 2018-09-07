@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index'
+import CommonFunction from './utils/index'
 //  vuex
 Vue.prototype.$store = store
+Vue.prototype.f = CommonFunction
+console.log(CommonFunction)
 Vue.config.productionTip = false
 App.mpType = 'app'
     // flyio
@@ -12,8 +15,8 @@ Vue.prototype.$http = fly
 const app = new Vue(App)
 app.$mount()
 Vue.prototype.G = getApp().globalData
-
-// 默认5s超时
+getApp().globalData.Vue = app
+    // 默认5s超时
 fly.config.timeout = 5000
 fly.config.baseURL = 'http://yapi.demo.qunar.com'
 

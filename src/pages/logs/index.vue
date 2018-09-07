@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { formatTime } from '@/utils/index'
 import card from '@/components/card'
 
 export default {
@@ -26,8 +25,19 @@ export default {
   created() {
     const logs = wx.getStorageSync('logs') || []
     this.logs = logs.map(log => {
-      return formatTime(new Date(log))
+      return this.f.formatTime(new Date(log))
     })
+  },
+  onShow() {
+    wx.switchTab({
+      url: '/pages/index/main'
+    })
+  },
+  onTabItemTap(item) {
+    wx.showToast({
+      title: 'tab点击'
+    })
+    console.log(item)
   }
 }
 </script>

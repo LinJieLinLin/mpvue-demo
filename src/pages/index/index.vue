@@ -1,40 +1,101 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
+  <div class="">
+    <div class="page">
+      <section v-if="page=='index'">
+        <div class="index" @click="clickHandle('test click', $event)">
+          <div class="userinfo" @click="bindViewTap">
+            <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+            <div class="userinfo-nickname">
+              <card :text="userInfo.nickName"></card>
+            </div>
+          </div>
 
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
+          <div class="usermotto">
+            <div class="user-motto">
+              <card :text="motto"></card>
+            </div>
+          </div>
+          <img class="userinfo-avatar" src="/static/img/1.png" background-size="cover" />
+          <div class="userinfo-avatar i1" src="../../asset/img/1.png" background-size="cover"></div>
+          <div class="userinfo-avatar i2" background-size="cover"></div>
+          <div class="userinfo-avatar i3" src="../../asset/img/3.jpg" background-size="cover"></div>
+          <form class="form-container">
+            <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
+            <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
+          </form>
+          <i class="image-i-ly"></i>
+          <i class="image-i-gm"></i>
+          <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+          <a href="/pages/logs/main" class="counter">去往log示例页面</a>
+          <a href="toPage('/pages/counter/main','')"></a>
+          <button class=" " type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">按钮授权</button>
+          <button class="mg-t20" type="primary" open-type="openSetting">授权设置</button>
+          <button class="mg-t20" type="primary" open-type="contact">客服会话</button>
+          <button class="mg-t20" type="primary" @click="testHttp">测试超时</button>
+          <button class=" " type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">按钮授权</button>
+          <button class="mg-t20" type="primary" open-type="openSetting">授权设置</button>
+          <button class="mg-t20" type="primary" open-type="contact">客服会话</button>
+          <button class="mg-t20" type="primary" @click="t">测试超时</button>
+          <div class="mg-t20">
+            <scan-code :c="cfSc"></scan-code>
+          </div>
+        </div>
+      </section>
+      <section v-if="page=='wm'">
+        <div class="index" @click="clickHandle('test click', $event)">
+          <div class="userinfo" @click="bindViewTap">
+            <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+            <div class="userinfo-nickname">
+              <card :text="userInfo.nickName"></card>
+            </div>
+          </div>
 
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
+          <div class="usermotto">
+            <div class="user-motto">
+              <card :text="motto"></card>
+            </div>
+          </div>
+          <img class="userinfo-avatar" src="/static/img/1.png" background-size="cover" />
+          <div class="userinfo-avatar i1" src="../../asset/img/1.png" background-size="cover"></div>
+          <div class="userinfo-avatar i2" background-size="cover"></div>
+          <div class="userinfo-avatar i3" src="../../asset/img/3.jpg" background-size="cover"></div>
+          <form class="form-container">
+            <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
+            <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
+          </form>
+          <i class="image-i-ly"></i>
+          <i class="image-i-gm"></i>
+          <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+          <a href="f.toPage('/pages/counter/main','')">去往log示例页面</a>
+        </div>
+      </section>
     </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-    <a href="/pages/logs/main" class="counter">去往log示例页面</a>
-    <button class=" " type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">按钮授权</button>
-    <button class="mg-t20" type="primary" open-type="openSetting">授权设置</button>
-    <button class="mg-t20" type="primary" open-type="contact">客服会话</button>
-    <button class="mg-t20" type="primary" @click="testHttp">测试超时</button>
-    <div class="mg-t20">
-      <scan-code :c="cfSc"></scan-code>
-    </div>
+    <footer class="flex-shrink" scroll-top>
+      <div>1{{page}}</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+    </footer>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+// components
 import card from '@/components/card'
 import scanCode from '@/components/scan-code'
-
 export default {
+  config: {
+    enablePullDownRefresh: true
+  },
+  async onPullDownRefresh() {
+    // to doing..
+    console.log('下拉')
+    wx.stopPullDownRefresh()
+  },
+  async onReachBottom() {
+    console.log('上拉')
+  },
   data() {
     return {
       motto: 'Hello World',
@@ -56,6 +117,7 @@ export default {
       wx.showToast({ title: res.result, icon: 'none' })
     },
     testHttp() {
+      wx.startPullDownRefresh()
       this.$http
         .request('/mock/18016/test', null, {
           timeout: 100
@@ -90,8 +152,12 @@ export default {
       console.log('clickHandle:', msg, ev)
     }
   },
+  computed: {
+    ...mapState(['page'])
+  },
   created() {
     console.log(this.G)
+    this.$store.state.page = 'index'
     this.$http.get('/mock/18016/test').then(
       rs => {
         console.log(rs)
@@ -105,42 +171,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+$footerH: 100px;
+.index {
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.page {
+  margin-bottom: $footerH;
 }
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
-}
-.mg-t20 {
-  margin-top: 20px;
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: $footerH;
+  background-color: gray;
 }
 </style>
