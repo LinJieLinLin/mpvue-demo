@@ -1,7 +1,11 @@
 {
     "pages": [
         "pages/index/main",
+        "pages/activity/main",
+        "pages/photograph/main",
+        "pages/mien/main",
         "pages/my/main",
+        "pages/login/main",
         "pages/counter/main",
         "pages/logs/main"
     ],
@@ -15,6 +19,15 @@
         "list": [{
             "pagePath": "pages/index/main",
             "text": "首页"
+        }, {
+            "pagePath": "pages/activity/main",
+            "text": "文明活动"
+        }, {
+            "pagePath": "pages/photograph/main",
+            "text": "随手拍"
+        }, {
+            "pagePath": "pages/mien/main",
+            "text": "文明风采"
         }, {
             "pagePath": "pages/my/main",
             "text": "我的"

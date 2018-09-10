@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="clickHandle('',$event)">
     <ul class="container log-list">
       <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
         <card :text="(index + 1) + ' . ' + log"></card>
@@ -21,24 +21,22 @@ export default {
       logs: []
     }
   },
-
+  methods: {
+    clickHandle(msg, ev) {
+      this.$store.state.page = ''
+      console.log('clickHandle:', msg, ev)
+    }
+  },
   created() {
     const logs = wx.getStorageSync('logs') || []
     this.logs = logs.map(log => {
       return this.f.formatTime(new Date(log))
     })
   },
-  onShow() {
-    wx.switchTab({
-      url: '/pages/index/main'
-    })
+  mounted() {
+    console.log('mounted')
   },
-  onTabItemTap(item) {
-    wx.showToast({
-      title: 'tab点击'
-    })
-    console.log(item)
-  }
+  onShow() {},
 }
 </script>
 

@@ -13,7 +13,27 @@ const matations = {
     decrement: (state) => {
         const obj = state
         obj.count -= 1
-    }
+    },
+    // 获取用户信息
+    getUserInfo(state, rs) {
+        if (!rs) {
+            wx.login({
+                success: () => {
+                    wx.getUserInfo({
+                        success: res => {
+                            console.log(res)
+                            state.userInfo = res.userInfo
+                        }
+                    })
+                }
+            })
+        } else {
+            console.log(this)
+            console.log(rs)
+            state.userInfo = rs.target.userInfo
+        }
+        // 调用登录接口
+    },
 }
 
 export default matations

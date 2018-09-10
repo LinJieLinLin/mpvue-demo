@@ -6,17 +6,12 @@ export default {
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     console.log('app created and cache logs by setStorageSync')
-  },
-  onTabItemTap(item) {
-    console.log(123321)
-    console.log(item.index)
-    console.log(item.pagePath)
-    console.log(item.text)
   }
+  // onShow() {}
 }
 </script>
 
-<style lang>
+<style lang="scss">
 @import './asset/css/index.scss';
 page {
   transition: width 2s;

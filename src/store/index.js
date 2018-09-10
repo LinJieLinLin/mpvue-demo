@@ -12,14 +12,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state,
     mutations,
+    // 用不了
     getters,
     actions,
     plugins: [
         createPersistedState({
             storage: {
-                getItem: key => wx.getStorageSync(key),
-                setItem: (key, value) => wx.setStorageSync(key, value),
-                removeItem: key => {}
+                getItem: key => {
+                    return wx.getStorageSync(key)
+                },
+                setItem: (key, value) => {
+                    return wx.setStorageSync(key, value)
+                },
+                removeItem: () => {}
             }
         })
     ]

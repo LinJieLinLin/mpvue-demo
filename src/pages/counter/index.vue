@@ -11,17 +11,14 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
-    count () {
-      return this.$store.state.count
-    }
+    ...mapState(['count'])
   },
   methods: {
-    increment () {
-      this.$store.commit('increment')
-    },
-    decrement () {
+    ...mapMutations(['increment']),
+    decrement() {
       this.$store.commit('decrement')
     }
   }

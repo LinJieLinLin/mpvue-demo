@@ -1,7 +1,7 @@
 // 变量定义
 const state = {
-    page: 'index',
-    openId: '',
+    // 用户信息
+    userInfo: {},
     count: 0
 }
 export default state

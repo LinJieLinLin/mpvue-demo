@@ -5,18 +5,21 @@ import CommonFunction from './utils/index'
 //  vuex
 Vue.prototype.$store = store
 Vue.prototype.f = CommonFunction
-console.log(CommonFunction)
 Vue.config.productionTip = false
 App.mpType = 'app'
-    // flyio
+
+// flyio
 var Fly = require('flyio/dist/npm/wx')
 var fly = new Fly()
 Vue.prototype.$http = fly
 const app = new Vue(App)
 app.$mount()
 Vue.prototype.G = getApp().globalData
+
+// dev 使用
 getApp().globalData.Vue = app
-    // 默认5s超时
+
+// 默认5s超时
 fly.config.timeout = 5000
 fly.config.baseURL = 'http://yapi.demo.qunar.com'
 
@@ -25,8 +28,25 @@ fly.interceptors.request.use((request) => {
     // 给所有请求添加自定义header
     request.headers['X-Tag'] = 'x-tag'
 
+    // 判断登录
+    CommonFunction.needLogin(app).then(
+        rs => {
+            app.G.code = rs.code
+            CommonFunction.toPage('login')
+        },
+        err => {
+            // 已登录
+            console.log('已登录', err)
+        }
+    )
+
     // 打印出请求
     console.log(request)
+
+    // 添加token todo
+
+    // 处理loading todo
+
     return request
 })
 
