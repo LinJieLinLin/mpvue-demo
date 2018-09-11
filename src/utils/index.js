@@ -90,7 +90,6 @@ let CommonFunction = {
                     },
                     fail: function(err) {
                         // 重新登录
-                        console.log(err)
                         return reject(err)
                     }
                 })
@@ -98,8 +97,6 @@ let CommonFunction = {
             wx.checkSession({
                 timeout: 5000,
                 success: rs => {
-                    console.log('re', rs)
-
                     // 处理未有用户信息
                     if (!wx.getStorageSync('login')) {
                         return login()
@@ -142,7 +139,6 @@ let CommonFunction = {
     },
     // 获取当前页url argWithParams：是否附带参数
     getCurrentPageUrl(argWithParams) {
-        console.log(this)
         var pages = getCurrentPages()
         var currentPage = pages[pages.length - 1]
         var url = currentPage.route
@@ -165,7 +161,6 @@ let CommonFunction = {
     },
     // 跳到页面
     toPage(argPage, argParams = {}, argType) {
-        console.log(argPage)
         if (!argPage || argPage === 'back') {
             wx.navigateBack({
                 delta: argType || 1
@@ -194,7 +189,6 @@ let CommonFunction = {
                 })
                 break
             default:
-                console.log('/pages/' + argPage + '/main' + this.urlParams(argParams))
                 wx.navigateTo({
                     url: '/pages/' + argPage + '/main' + this.urlParams(argParams)
                 })

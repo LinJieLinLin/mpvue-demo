@@ -6,8 +6,7 @@
         {{userInfo.nickName}}
       </div>
     </div>
-    <div @click="t">12331</div>
-    <button class="" type="primary" open-type="openSetting" @click="openSetting()">授权设置</button>
+    <button class="mg-x20" type="primary" open-type="openSetting" @click="openSetting()">授权设置</button>
   </div>
 </template>
 
@@ -21,11 +20,6 @@ export default {
     }
   },
   methods: {
-    t() {
-      console.log(123)
-      console.log(this.$store.getters)
-      this.$store.state.count = 100
-    },
     openSetting(rs) {
       console.log(rs)
     }
@@ -34,18 +28,14 @@ export default {
     ...mapState(['userInfo'])
   },
   onShow() {
-    console.log('onShow')
   },
   mounted() {
-    console.log('mounted')
-    this.f.getLocation(this.G).then(rs => {
-      console.log(rs, this.G)
-    })
+    // this.f.getLocation(this.G).then(rs => {
+    //   console.log(rs, this.G)
+    // })
   },
   onTabItemTap(item) {
-    wx.showToast({
-      title: 'tab点击'
-    })
+    this.f.toast('tab点击')
     console.log(item)
   }
 }

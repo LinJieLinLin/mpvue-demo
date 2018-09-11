@@ -24,7 +24,6 @@ export default {
         onlyFromCamera: this.c.onlyFromCamera || false,
         scanType: ['barCode'],
         success: res => {
-          console.log(res)
           if (typeof this.c.cb === 'function') {
             this.c.cb(res)
           }

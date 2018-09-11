@@ -24,7 +24,6 @@ export default {
   methods: {
     clickHandle(msg, ev) {
       this.$store.state.page = ''
-      console.log('clickHandle:', msg, ev)
     }
   },
   created() {
@@ -34,7 +33,6 @@ export default {
     })
   },
   mounted() {
-    console.log('mounted')
   },
   onShow() {},
 }

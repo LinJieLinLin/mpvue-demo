@@ -33,7 +33,6 @@ export default {
   },
   onShow() {
     // 活动时
-    console.log(this.f.getCurrentPageUrl(1))
   }
 }
 </script>
