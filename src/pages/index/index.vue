@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 // components
 import card from '@/components/card'
 import scanCode from '@/components/scan-code'
@@ -66,39 +66,28 @@ export default {
     scanCode
   },
   methods: {
+    ...mapActions(['TestGet', 'TestPost']),
+    testGet() {
+      this.TestGet().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log('err:', err)
+      })
+    },
     qrcode(res) {
       wx.showToast({ title: res.result, icon: 'none' })
     },
     testHttp() {
       wx.startPullDownRefresh()
-      this.$http
-        .request('/mock/18016/test', null, {
-          timeout: 100
-        })
-        .then(
-          rs => {
-            console.log(rs)
-          },
-          err => {
-            console.log(err)
-          }
-        )
     }
   },
   computed: {
     ...mapState(['page', 'count'])
   },
   created() {
-    this.$http.get('/mock/18016/test').then(
-      rs => {
-        console.log(rs)
-      },
-      err => {
-        console.log(err)
-      }
-    )
+    this.testGet()
   },
-  onShow() {}
+  onShow() { }
 }
 </script>
 
