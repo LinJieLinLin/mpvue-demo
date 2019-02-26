@@ -21,7 +21,8 @@
           <i class="image-i-gm"></i>
           <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
           <a href="/pages/logs/main" class="counter">去往log示例页面</a>
-          <a href="toPage('/pages/counter/main','')"></a>
+          <a href="/pages/logs/main" class="counter">去往log示例页面</a>
+          <button @click="f.toPage('packageA/test')" class="mg-t20" type="primary">分包test</button>
           <button class="mg-t20" type="primary" open-type="openSetting">授权设置</button>
           <button class="mg-t20" type="primary" open-type="contact">客服会话</button>
           <button class="mg-t20" type="primary" @click="testHttp">测试超时</button>

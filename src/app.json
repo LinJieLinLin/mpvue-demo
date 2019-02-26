@@ -7,9 +7,16 @@
     "pages/my/main",
     "pages/login/main",
     "pages/counter/main",
+    "pages/ademo/main",
     "pages/yunFunction/main",
     "pages/logs/main"
   ],
+  "subpackages": [{
+    "root": "pages/packageA",
+    "pages": [
+      "test/main"
+    ]
+  }],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

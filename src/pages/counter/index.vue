@@ -5,8 +5,7 @@
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
     </p>
-
-    <a href="/pages/index/main" class="home">去往首页</a>
+    <button @click="f.toPage('index')">去首页</button>
   </div>
 </template>
 
