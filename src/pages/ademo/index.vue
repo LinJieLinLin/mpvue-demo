@@ -1,6 +1,7 @@
 <template>
   <div>
-
+    <div class="">vant星星组件</div>
+    <van-rate color="red" :value="value" @change="onChange" />
   </div>
 </template>
 
@@ -8,14 +9,25 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
   components: {},
+  props: {},
   data() {
     return {
-      logs: []
+      value: 3
     }
   },
-  methods: {},
+  computed: {
+
+  },
+  watch: {},
+  created() { },
   mounted() {
-    // 挂载
+
+  },
+  destroyed() { },
+  methods: {
+    onChange(event) {
+      this.value = event.detail
+    }
   },
   onShow() {
     // 活动时

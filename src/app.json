@@ -11,12 +11,12 @@
     "pages/yunFunction/main",
     "pages/logs/main"
   ],
-  "subpackages": [{
-    "root": "pages/packageA",
-    "pages": [
-      "test/main"
-    ]
-  }],
+  "subpackages": [
+    {
+      "root": "pages/packageA",
+      "pages": ["test/main"]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -24,21 +24,27 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/main",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/activity/main",
-      "text": "文明活动"
-    }, {
-      "pagePath": "pages/photograph/main",
-      "text": "随手拍"
-    }, {
-      "pagePath": "pages/mien/main",
-      "text": "文明风采"
-    }, {
-      "pagePath": "pages/my/main",
-      "text": "我的"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/main",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/activity/main",
+        "text": "文明活动"
+      },
+      {
+        "pagePath": "pages/photograph/main",
+        "text": "随手拍"
+      },
+      {
+        "pagePath": "pages/mien/main",
+        "text": "文明风采"
+      },
+      {
+        "pagePath": "pages/my/main",
+        "text": "我的"
+      }
+    ]
   }
 }

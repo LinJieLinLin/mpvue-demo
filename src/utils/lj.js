@@ -93,7 +93,7 @@ export const replaceUrlParam = (name, value, url = window.location.href) => {
  * @description 转义html标签
  * @param  {} argHtml 需要转义的文本
  */
-export const encodeHtml = (argHtml) => {
+export const encodeHtml = argHtml => {
   if (!argHtml || argHtml.length === 0) {
     return ''
   }
@@ -112,7 +112,7 @@ export const encodeHtml = (argHtml) => {
  * @description 反转义html标签
  * @param  {} argHtml 需要反转义的文本
  */
-export const decodeHtml = (argHtml) => {
+export const decodeHtml = argHtml => {
   if (!argHtml || argHtml.length === 0) {
     return ''
   }
@@ -159,7 +159,7 @@ export const safeData = (argData, argCheck, argValue) => {
  * @description 设置标题
  * @param  {} argTitle 标题
  */
-export const setTitle = (argTitle) => {
+export const setTitle = argTitle => {
   document.getElementsByTagName('title')[0].innerText = argTitle
 }
 
@@ -187,7 +187,11 @@ export const rmbPrice = (argData, argRate = 1) => {
  * @param  {string} emptyTip date为false时，默认''
  * @returns {string}
  */
-export const formatTime = (date = +new Date(), fmt = 'YYYY-MM-DD HH:mm:ss', emptyTip = '') => {
+export const formatTime = (
+  date = +new Date(),
+  fmt = 'YYYY-MM-DD HH:mm:ss',
+  emptyTip = ''
+) => {
   if (!date && date !== 0) {
     return emptyTip
   }
@@ -206,7 +210,7 @@ export const formatTime = (date = +new Date(), fmt = 'YYYY-MM-DD HH:mm:ss', empt
     'm+': date.getMinutes(),
     's+': date.getSeconds(),
     'q+': Math.floor((date.getMonth() + 3) / 3),
-    'S': date.getMilliseconds()
+    S: date.getMilliseconds()
   }
   var week = {
     '0': '\u65e5',
@@ -218,14 +222,27 @@ export const formatTime = (date = +new Date(), fmt = 'YYYY-MM-DD HH:mm:ss', empt
     '6': '\u516d'
   }
   if (/(Y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+    fmt = fmt.replace(
+      RegExp.$1,
+      (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+    )
   }
   if (/(E+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? '\u661f\u671f' : '\u5468') : '') + week[date.getDay() + ''])
+    fmt = fmt.replace(
+      RegExp.$1,
+      (RegExp.$1.length > 1
+        ? RegExp.$1.length > 2
+          ? '\u661f\u671f'
+          : '\u5468'
+        : '') + week[date.getDay() + '']
+    )
   }
   for (var k in o) {
     if (new RegExp('(' + k + ')').test(fmt)) {
-      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
+      )
     }
   }
   return fmt
@@ -240,7 +257,11 @@ export const formatTime = (date = +new Date(), fmt = 'YYYY-MM-DD HH:mm:ss', empt
  * @param  {string} emptyTip date为false时，默认''
  * @returns {string}
  */
-export const friendlyTime = (date = +new Date(), fmt = 'YYYY-MM-DD HH:mm:ss', emptyTip = '') => {
+export const friendlyTime = (
+  date = +new Date(),
+  fmt = 'YYYY-MM-DD HH:mm:ss',
+  emptyTip = ''
+) => {
   if (!date && date !== 0) {
     return emptyTip
   }
@@ -251,24 +272,28 @@ export const friendlyTime = (date = +new Date(), fmt = 'YYYY-MM-DD HH:mm:ss', em
     }
   }
   date = new Date(+date)
-  let diff = (((new Date()).getTime() - date.getTime()) / 1000)
+  let diff = (new Date().getTime() - date.getTime()) / 1000
   let dayDiff = Math.floor(diff / 86400)
-  let isValidDate = Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime())
+  let isValidDate =
+    Object.prototype.toString.call(date) === '[object Date]' &&
+    !isNaN(date.getTime())
   if (!isValidDate) {
     console.error('not a valid date')
   }
   if (isNaN(dayDiff) || dayDiff < 0 || dayDiff >= 31) {
     return this.formatTime(date, fmt)
   }
-  return dayDiff === 0 && (
-      diff < 60 && '刚刚' ||
-      diff < 120 && '1分钟前' ||
-      diff < 3600 && Math.floor(diff / 60) + '分钟前' ||
-      diff < 7200 && '1小时前' ||
-      diff < 86400 && Math.floor(diff / 3600) + '小时前') ||
-    dayDiff === 1 && '昨天' ||
-    dayDiff < 7 && dayDiff + '天前' ||
-    dayDiff < 31 && Math.ceil(dayDiff / 7) + '周前'
+  return (
+    (dayDiff === 0 &&
+      ((diff < 60 && '刚刚') ||
+        (diff < 120 && '1分钟前') ||
+        (diff < 3600 && Math.floor(diff / 60) + '分钟前') ||
+        (diff < 7200 && '1小时前') ||
+        (diff < 86400 && Math.floor(diff / 3600) + '小时前'))) ||
+    (dayDiff === 1 && '昨天') ||
+    (dayDiff < 7 && dayDiff + '天前') ||
+    (dayDiff < 31 && Math.ceil(dayDiff / 7) + '周前')
+  )
 }
 
 /**
@@ -282,13 +307,14 @@ export const remInit = () => {
 
   // 设置 rem 函数
   const setRem = () => {
-      // 当前页面宽度相对于 750 宽的缩放比例，可根据自己需要修改。
-      const scale = document.documentElement.clientWidth / 750
+    // 当前页面宽度相对于 750 宽的缩放比例，可根据自己需要修改。
+    const scale = document.documentElement.clientWidth / 750
 
-      // 设置页面根节点字体大小
-      document.documentElement.style.fontSize = (baseSize * Math.min(scale, 2)) + 'px'
-    }
-    // 初始化
+    // 设置页面根节点字体大小
+    document.documentElement.style.fontSize =
+      baseSize * Math.min(scale, 2) + 'px'
+  }
+  // 初始化
   setRem()
 
   // 改变窗口大小时重新设置 rem
@@ -302,7 +328,7 @@ export const remInit = () => {
  * @description 是否为正确的身份证号码
  * @param  {string} code 身份证号码
  */
-export const isIdCard = (code) => {
+export const isIdCard = code => {
   let city = {
     11: '北京',
     12: '天津',
@@ -342,7 +368,12 @@ export const isIdCard = (code) => {
   }
   let tip = ''
   let pass = true
-  if (!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)) {
+  if (
+    !code ||
+    !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(
+      code
+    )
+  ) {
     tip = '身份证号格式错误'
     pass = false
   } else if (!city[code.substr(0, 2)]) {
@@ -352,10 +383,10 @@ export const isIdCard = (code) => {
     // 18位身份证需要验证最后一位校验位
     if (code.length === 18) {
       code = code.split('')
-        // ∑(ai×Wi)(mod 11)
-        // 加权因子
+      // ∑(ai×Wi)(mod 11)
+      // 加权因子
       let factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
-        // 校验位
+      // 校验位
       let parity = [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2]
       let sum = 0
       let ai = 0

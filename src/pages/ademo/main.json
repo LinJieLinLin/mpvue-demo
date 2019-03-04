@@ -1,3 +1,6 @@
 {
-    "navigationBarTitleText": "我的"
+  "usingComponents": {
+    "van-rate": "../../static/vant/rate/index"
+  },
+  "navigationBarTitleText": "我的"
 }
