@@ -1,7 +1,7 @@
-import { request } from '@/utils/request'
+import { request } from '@/utils/wx'
 export function TestGet(params = {}, config = {}) {
   return request({
-    url: 'api/test',
+    url: 'http://yapi.demo.qunar.com/mock/9343/api/test',
     method: 'get',
     params,
     config

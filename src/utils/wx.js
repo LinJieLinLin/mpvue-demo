@@ -80,6 +80,9 @@ export const checkSetting = argSet => {
       success(res) {
         wx.setStorageSync('authSetting', res.authSetting)
         if (!res.authSetting['scope.' + argSet]) {
+          if (argSet === 'userInfo') {
+            return reject(new Error('未授权用户信息'))
+          }
           wx.authorize({
             scope: 'scope.' + argSet,
             success(rs) {

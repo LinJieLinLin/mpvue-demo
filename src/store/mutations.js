@@ -1,39 +1,16 @@
 const matations = {
-    /**
-     * state:当前状态树
-     * d: 提交matations时传的参数
-     */
-    getOpenId(state, d) {
-        state.openId = d
-    },
-    increment: (state) => {
-        const obj = state
-        obj.count += 1
-    },
-    decrement: (state) => {
-        const obj = state
-        obj.count -= 1
-    },
-    // 获取用户信息
-    getUserInfo(state, rs) {
-        if (!rs) {
-            wx.login({
-                success: () => {
-                    wx.getUserInfo({
-                        success: res => {
-                            console.log(res)
-                            state.userInfo = res.userInfo
-                        }
-                    })
-                }
-            })
-        } else {
-            console.log(this)
-            console.log(rs)
-            state.userInfo = rs.target.userInfo
-        }
-        // 调用登录接口
-    },
+  /**
+   * @description 获取用户信息
+   * @param {object} rs 用户信息
+   */
+  SetUserInfo(state, rs) {
+    Object.assign(state.UserInfo, rs.userInfo)
+    state.UserInfo.encryptedData = rs.encryptedData
+    state.UserInfo.iv = rs.iv
+    state.UserInfo.signature = rs.signature
+    state.UserInfo.encryptedData = rs.encryptedData
+    state.UserInfo.code = rs.code
+  }
 }
 
 export default matations

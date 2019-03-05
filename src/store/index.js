@@ -10,22 +10,22 @@ Vue.use(Vuex)
 
 // 引入vuex-persistedstate，将vuex的数据持久化到本地
 export default new Vuex.Store({
-    state,
-    mutations,
-    // 用不了
-    getters,
-    actions,
-    plugins: [
-        createPersistedState({
-            storage: {
-                getItem: key => {
-                    return wx.getStorageSync(key)
-                },
-                setItem: (key, value) => {
-                    return wx.setStorageSync(key, value)
-                },
-                removeItem: () => {}
-            }
-        })
-    ]
+  state,
+  mutations,
+  // 用不了
+  getters,
+  actions,
+  plugins: [
+    createPersistedState({
+      storage: {
+        getItem: key => {
+          return wx.getStorageSync(key)
+        },
+        setItem: (key, value) => {
+          return wx.setStorageSync(key, value)
+        },
+        removeItem: () => {}
+      }
+    })
+  ]
 })

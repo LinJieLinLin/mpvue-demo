@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {},
   data() {
@@ -14,18 +14,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['UserInfo'])
   },
   methods: {
-    ...mapMutations(['getUserInfo']),
+    ...mapActions(['GetUserInfo']),
     checkUserInfo(rs) {
-      console.log('checkUserInfo')
-      this.getUserInfo(rs)
-      if (!this.userInfo) {
-      } else {
-        wx.setStorageSync('login', true)
+      this.GetUserInfo(rs).then(res => {
+        console.log('登录操作 todo', res)
         this.f.toPage()
-      }
+      }, err => {
+        console.log(err)
+      })
     }
   },
   mounted() {

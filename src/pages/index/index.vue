@@ -60,7 +60,7 @@ export default {
     scanCode
   },
   methods: {
-    ...mapActions(['TestGet', 'TestPost']),
+    ...mapActions(['TestGet', 'TestPost', 'GetUserInfo']),
     testGet() {
       this.TestGet().then(res => {
         console.log(res)
@@ -80,6 +80,7 @@ export default {
   },
   created() {
     this.testGet()
+    this.GetUserInfo()
   },
   onShow() { }
 }
