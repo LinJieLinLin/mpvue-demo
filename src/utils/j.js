@@ -2,8 +2,39 @@
  * 公共函数
  * @module
  * @author linj
+ * @description 公共函数
  */
 
+/**
+ * @static
+ * @description 正则收集
+ */
+export const regexp = {
+  // 简易身份证号正则，isIdCard更为严格
+  idCard: /^(d{6})(d{4})(d{2})(d{2})(d{3})([0-9]|X)$/,
+  // 手机号
+  phone: /^1d{10}$/,
+  // 邮箱
+  email: /^(w)+(.w+)*@(w)+((.w+)+)$/,
+  // 网址
+  http: /http:\/\/|https:\/\//,
+  // 分数
+  score: /^[1-9]d*|0$/,
+  // 保留1位小数的分数
+  score1: /^(([1-9])|([1-9]+[0-9]+)|(0)|([0-9]+.[0-9]{1}))$/,
+  // 保留1位小数的分数
+  score2: /^(([1-9])|([1-9]+[0-9]+)|(0)|([0-9]+.[0-9]{2}))$/,
+  // 整数
+  int: /^[1-9]d*$/,
+  // 正一位小数
+  float1: /^(([1-9]d*)|0|(d+.d{1}))$/,
+  // 正两位小数
+  float2: /^(([1-9]d*)|0|(d+.d{2}))$/,
+  // 帐号50个字内：大小写+数字+中文+'_'+'-'
+  account: /^[a-zA-Z0-9_\-\u4e00-\u9fa5]{1,50}$/,
+  // 中英文姓名 50个字内
+  realName: /^([\u4e00-\u9fa5]{1,50}|[\u4e00-\u9fa5]{1,25}[\s][\u4e00-\u9fa5]{1,24}|[a-zA-Z_\-.]{1,50}|[a-zA-Z_\-.]{1,25}[\s][a-zA-Z_\-.]{1,24})$/
+}
 /**
  * @description obj转url参数
  * @function
@@ -181,7 +212,6 @@ export const rmbPrice = (argData, argRate = 1) => {
 /**
  * @description 日期格式化显示
  * @function
- * @name formatTime
  * @param  {number} date 时间对象\时间戳，默认当前时间
  * @param  {string} fmt 格式化符串，默认'YYYY-MM-DD HH:mm:ss'
  * @param  {string} emptyTip date为false时，默认''
@@ -251,7 +281,6 @@ export const formatTime = (
 /**
  * @description 日期格式化友好显示 刚刚 x分钟前 ...
  * @function
- * @name friendlyTime
  * @param  {number} date 时间对象\时间戳，默认当前时间
  * @param  {string} fmt 格式化符串，默认'YYYY-MM-DD HH:mm:ss'
  * @param  {string} emptyTip date为false时，默认''
@@ -297,9 +326,8 @@ export const friendlyTime = (
 }
 
 /**
- * @description 使用postcss-px2rem时使用
  * @function
- * @name remInit
+ * @description 使用postcss-px2rem时使用
  */
 export const remInit = () => {
   // 基准大小
@@ -405,4 +433,53 @@ export const isIdCard = code => {
   }
   console.log(tip)
   return pass
+}
+/**
+ * @function
+ * @description 获取cookie
+ * @param  {string} argName 要获取的值
+ */
+export const getCookie = argName => {
+  let cookie = document.cookie.split('; ')
+  for (let i = 0; i < cookie.length; i += 1) {
+    let name = cookie[i].split('=')
+    if (argName === name[0]) {
+      return unescape(name[1] || '')
+    }
+  }
+  return ''
+}
+/**
+ * @function
+ * @description 设置cookie
+ * @param  {string} argName 要设置的值
+ * @param  {string} argName 要设置的key
+ * @param  {string} argValue 要设置的value
+ * @param  {string} argTime 过期时间/时 默认24小时
+ */
+export const setCookie = (argName, argValue, argTime = 24) => {
+  let now = new Date()
+  let offset = 8
+  let utc = now.getTime() + now.getTimezoneOffset() * 60000
+  let nd = utc + 3600000 * offset
+  let exp = new Date(nd)
+  let domain = document.domain
+  exp.setTime(exp.getTime() + argTime * 60 * 60 * 1000)
+  document.cookie =
+    argName +
+    '=' +
+    escape(argValue) +
+    ';path=/;expires=' +
+    exp.toGMTString() +
+    ';domain=' +
+    domain +
+    ';'
+}
+/**
+ * @function
+ * @description 清除cookie
+ * @param  {string} argName 要清除的值
+ */
+export const delCookie = argName => {
+  setCookie(argName, '', -1)
 }

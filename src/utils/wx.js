@@ -1,15 +1,79 @@
+import { Loading } from './jClass'
+let L = new Loading(() => {
+  wx.showLoading({})
+}, wx.hideLoading)
 /**
- * 微信小程序公共函数
  * @module
  * @author linj
+ * @description 微信小程序公共函数
  */
+/**
+ * @static
+ * @description 默认拦截函数obj
+ */
+const interceptors = {
+  request(argData) {
+    L.loading(1)
+    return argData
+  },
+  response(argData) {
+    L.loading()
+    return argData
+  }
+}
+/**
+ * @description 修改设置拦截函数
+ * @function
+ * @param {function} argRequest 请求拦截
+ * @param {argResponse} argRequest 响应拦截
+ */
+export const setRequest = (argRequest, argResponse) => {
+  if (typeof argRequest === 'function') {
+    interceptors.request = argData => {
+      L.loading(1)
+      return argRequest(argData)
+    }
+  }
+  if (typeof argResponse === 'function') {
+    interceptors.response = argData => {
+      L.loading()
+      return argResponse(argData)
+    }
+  }
+}
+/**
+ * @description 封装小程序request
+ * @function
+ * @param {object} argOption http配置
+ * @returns {promise}
+ */
+export const request = argOption => {
+  argOption.params = interceptors.request(argOption.params)
+  return new Promise((resolve, reject) => {
+    let config = {
+      url: argOption.url,
+      method: argOption.method || 'GET',
+      data: argOption.params,
+      success(res) {
+        interceptors.response(res)
+        return resolve(res)
+      },
+      fail(err) {
+        interceptors.response(err)
+        return reject(err)
+      }
+    }
+    Object.assign(config, argOption.config)
+    wx.request(config)
+  })
+}
 /**
  * @description 检查用户授权状态，UserInfo除外，将拿到的权限放在authSetting 中
  * @function
  * @param {string} argSet 要检查的权限
  * @returns {promise}
  */
-export const checkSetting = (argSet) => {
+export const checkSetting = argSet => {
   wx.removeStorage({ key: 'authSetting' })
   return new Promise(function(resolve, reject) {
     wx.getSetting({
@@ -59,14 +123,17 @@ export const getLocation = (argType = 'wgs84', argAltitude = false) => {
       })
     })
   }
-  let re = async() => {
+  let re = async () => {
     try {
       await checkSetting('userLocation')
       let re = await location()
       return re
     } catch (err) {
       if (err.errMsg) {
-        wx.showToast({ title: '您已拒绝地理位置授权,可以在设置中重新打开', icon: 'none' })
+        wx.showToast({
+          title: '您已拒绝地理位置授权,可以在设置中重新打开',
+          icon: 'none'
+        })
       }
       return Promise.reject(err)
     }
@@ -106,7 +173,7 @@ export const toast = (argTitle, argOption = { icon: 'none' }) => {
  * @description 设置标题
  * @param  {} argTitle 标题
  */
-export const setTitle = (argTitle) => {
+export const setTitle = argTitle => {
   wx.setNavigationBarTitle({
     title: argTitle
   })
@@ -187,7 +254,7 @@ export const toPage = (argPage, argParams = {}, argType) => {
  * @function
  * @description 当前页面数据obj
  */
-export const currentPage = () => {
+export const getCurrentPages = () => {
   var pages = getCurrentPages()
   return pages[pages.length - 1]
 }
@@ -197,7 +264,7 @@ export const currentPage = () => {
  * @description 获取当前页url
  * @param {boolean} argWithParams 是否附带参数
  */
-export const getCurrentPageUrl = (argWithParams) => {
+export const getCurrentPageUrl = argWithParams => {
   var pages = getCurrentPages()
   var currentPage = pages[pages.length - 1]
   var url = currentPage.route
