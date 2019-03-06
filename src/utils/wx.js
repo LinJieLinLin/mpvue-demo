@@ -67,13 +67,6 @@ export const request = argOption => {
     wx.request(config)
   })
 }
-export const sleep = argSecond => {
-  return new Promise(function(resolve, reject) {
-    setTimeout(() => {
-      return resolve()
-    }, argSecond * 1000)
-  })
-}
 /**
  * @function
  * @description 检查是否有更新
