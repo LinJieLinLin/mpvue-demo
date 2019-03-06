@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="userinfo">
-      <img v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+      <img v-if="UserInfo.avatarUrl" :src="UserInfo.avatarUrl" background-size="cover" />
       <div class="nickname">
-        {{userInfo.nickName}}
+        {{UserInfo.nickName}}
       </div>
     </div>
     <button class="mg-x20" type="primary" open-type="openSetting" @click="openSetting()">授权设置</button>
@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['UserInfo'])
   },
   onShow() {
   },

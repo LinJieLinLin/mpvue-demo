@@ -178,48 +178,39 @@
     }
   }
 }
-
 /* <flex> */
-
 @mixin oFlex() {
-  // http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
-  //  flex-direction属性决定主轴的方向（即项目的排列方向）。
-  //  flex-wrap 属性定义，如果一条轴线排不下，如何换行
-  //  flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
-  // justify-content属性定义了项目在主轴(x轴)上的对齐方式。
-  // align-items属性定义项目在交叉轴(y轴)上如何对齐。
-  // align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
-  // order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
-  //  flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
-  //  flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
-  //  flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
-  //  flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
-  // align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
-  .flex1 {
-    flex: 1;
+  /* http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+ flex-direction属性决定主轴的方向（即项目的排列方向）。
+ flex-wrap 属性定义，如果一条轴线排不下，如何换行
+ flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+ justify-content属性定义了项目在主轴(x轴)上的对齐方式。
+ align-items属性定义项目在交叉轴(y轴)上如何对齐。
+ align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+ order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+ flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+ flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+ flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
+ flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+ align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。 */
+  .flex0 {
+    flex: none;
   }
-  .flex2 {
-    flex: 2;
+  @for $num from 1 through 12 {
+    .flex#{$num} {
+      flex: $num;
+    }
   }
-  .flex3 {
-    flex: 3;
-  }
-  .flex4 {
-    flex: 4;
-  }
-  .flex5 {
-    flex: 5;
-  }
-  .flex-box {
+  .flex {
     display: flex;
   }
   .flex-wrap {
+    display: flex;
     flex-wrap: wrap;
   }
   .flex-column {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
   .flex-space-between {
     display: flex;
@@ -228,12 +219,12 @@
     align-content: center;
     align-items: center;
   }
-  .flex-space-between-end {
+  .flex-space-around {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: center;
-    align-items: flex-end;
+    align-items: center;
   }
   .flex-center {
     display: flex;
@@ -245,17 +236,25 @@
     display: flex;
     align-items: center;
   }
-  .flex-stretch {
-    display: flex;
+  .flex-y-center {
+    align-items: center;
+  }
+  .flex-y-stretch {
     align-items: stretch;
   }
-  .flex-end {
-    align-self: flex-end;
+  .flex-y-end {
+    align-items: flex-end;
   }
-  .flex-start {
+  .flex-y-start {
     align-items: flex-start;
   }
-  .flex-noshrink {
-    flex-shrink: 0;
+  .flex-x-center {
+    justify-content: center;
+  }
+  .flex-y-end {
+    justify-content: flex-end;
+  }
+  .flex-y-start {
+    justify-content: flex-start;
   }
 }

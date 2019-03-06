@@ -33,7 +33,7 @@ fly.interceptors.response.use(
     switch (data.code) {
       case 4:
         console.log('请授权登录', data.data.url)
-        location.href = data.data.url
+        window.location.href = data.data.url
         return Promise.reject(data.data)
       default:
         return Promise.reject(data.data)

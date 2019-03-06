@@ -1,5 +1,5 @@
 <script>
-import { checkSetting, login } from './utils/wx.js'
+import { checkSetting, login, checkUpdate, sleep } from './utils/wx.js'
 import { mapState } from 'vuex'
 export default {
   computed: {
@@ -14,6 +14,9 @@ export default {
   },
   onShow() {
     console.log('app', this.UserInfo)
+    sleep(5).then(() => {
+      checkUpdate()
+    })
     if (!this.UserInfo || !this.UserInfo.nickName) {
       console.log('用户信息丢失，重新获取')
       this.f.toPage('login')

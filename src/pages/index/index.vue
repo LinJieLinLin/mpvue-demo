@@ -80,7 +80,6 @@ export default {
   },
   created() {
     this.testGet()
-    this.GetUserInfo()
   },
   onShow() { }
 }
