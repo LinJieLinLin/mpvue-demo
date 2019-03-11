@@ -23,6 +23,7 @@ export default {
     } else {
       checkSetting('userInfo').then(res => {
         console.log(res)
+        res = null
       }, err => {
         console.log(err)
         this.f.toPage('login')
