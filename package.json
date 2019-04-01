@@ -63,6 +63,7 @@
         "shelljs": "^0.8.1",
         "uglifyjs-webpack-plugin": "^1.2.5",
         "url-loader": "^1.1.1",
+        "vant-weapp": "^0.5.7",
         "vue-style-loader": "^4.1.0",
         "vuex-persistedstate": "^2.5.4",
         "webpack": "^3.11.0",
