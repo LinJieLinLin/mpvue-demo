@@ -33,7 +33,13 @@ var webpackConfig = merge(baseWebpackConfig, {
       'process.env': env
     }),
     new UglifyJsPlugin({
-      sourceMap: true
+      sourceMap: false,
+      uglifyOptions: {
+        comments: false, // 去掉注释
+        compress: {
+          warnings: false // 忽略警告,要不然会有一大堆的黄色字体出现……
+        }
+      }
     }),
     // extract css into its own file
     new ExtractTextPlugin({
@@ -69,13 +75,14 @@ var webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common/vendor',
-      minChunks: function (module, count) {
+      minChunks: function(module, count) {
         // any required modules inside node_modules are extracted to vendor
         return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf('node_modules') >= 0
-        ) || count > 1
+          (module.resource &&
+            /\.js$/.test(module.resource) &&
+            module.resource.indexOf('node_modules') >= 0) ||
+          count > 1
+        )
       }
     }),
     // extract webpack runtime and module manifest to its own file in order to
@@ -106,7 +113,8 @@ var webpackConfig = merge(baseWebpackConfig, {
 // }
 
 if (config.build.bundleAnalyzerReport) {
-  var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  var BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 
